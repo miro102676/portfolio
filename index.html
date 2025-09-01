@@ -1,0 +1,1963 @@
+  <!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My portfolio </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+         <style>
+                   * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --dark-bg: #050716;
+            --darker-bg: #030512;
+            --accent-primary: #1e90ff; 
+            --accent-secondary: #4facfe;
+            --accent-tertiary: #6a82fb;
+            --text-primary: #f0f0f0;
+            --text-secondary: #8fa0d2;
+            --card-bg: #0e1329;
+            --card-hover: #141c3d;
+            --transition-slow: 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: 0.3s ease;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.7;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            color: var(--accent-primary);
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        } 
+  
+        .nav-toggle {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(30, 144, 255, 0.12);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1001;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(30, 144, 255, 0.25);
+            transition: var(--transition-fast);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .nav-toggle:hover {
+            background: rgba(30, 144, 255, 0.2);
+            transform: rotate(180deg);
+            box-shadow: 0 0 20px rgba(30, 144, 255, 0.4);
+        }
+        
+        .nav-toggle span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: var(--accent-primary);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-toggle.active {
+            transform: rotate(180deg);
+            background: rgba(30, 144, 255, 0.15);
+        }
+        
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        .side-nav {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 380px;
+            height: 100vh;
+            background: rgba(5, 7, 22, 0.98);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 120px 40px;
+            transition: right 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            border-left: 1px solid rgba(30, 144, 255, 0.15);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .side-nav.active {
+            right: 0;
+        }
+        
+        .side-nav-links {
+            list-style: none;
+        }
+        
+        .side-nav-links li {
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 0.5s ease;
+        }
+        
+        .side-nav.active .side-nav-links li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .side-nav.active .side-nav-links li:nth-child(1) { transition-delay: 0.1s; }
+        .side-nav.active .side-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .side-nav.active .side-nav-links li:nth-child(3) { transition-delay: 0.2s; }
+        .side-nav.active .side-nav-links li:nth-child(4) { transition-delay: 0.25s; }
+        .side-nav.active .side-nav-links li:nth-child(5) { transition-delay: 0.3s; }
+        .side-nav.active .side-nav-links li:nth-child(6) { transition-delay: 0.35s; }
+        
+        .side-nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid transparent;
+            background: rgba(30, 144, 255, 0.05);
+        }
+        
+        .side-nav-links a i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 25px;
+            text-align: center;
+            color: var(--accent-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .side-nav-links a:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-primary), var(--accent-tertiary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .side-nav-links a:hover:before {
+            opacity: 1;
+        }
+        
+        .side-nav-links a:hover {
+            background: rgba(30, 144, 255, 0.1);
+            color: var(--accent-primary);
+            transform: translateX(-8px);
+            border-left: 4px solid var(--accent-primary);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .side-nav-links a:hover i {
+            transform: scale(1.2);
+            color: var(--accent-tertiary);
+        }
+        
+        .nav-decoration {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(30, 144, 255, 0.15) 0%, transparent 70%);
+            filter: blur(20px);
+            z-index: -1;
+        }
+        
+        .nav-decoration:nth-child(1) {
+            top: 15%;
+            left: 20%;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .nav-decoration:nth-child(2) {
+            bottom: 10%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(106, 130, 251, 0.1) 0%, transparent 70%);
+        }
+        
+     
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #030512, #050716, #0a1029);
+            z-index: -2;
+        }
+        
+      
+        .hero-bg-overlay {
+    background: 
+        radial-gradient(circle at 75% 25%, rgba(30, 144, 255, 0.15), transparent 30%),
+        radial-gradient(circle at 25% 75%, rgba(79, 172, 254, 0.1), transparent 30%),
+        linear-gradient(45deg, rgba(5, 7, 22, 0.9), rgba(10, 16, 41, 0.8));
+}
+ 
+.particle {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-tertiary));
+    animation: float 12s infinite ease-in-out;
+    box-shadow: 0 0 20px currentColor;
+}
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1.5s forwards 0.5s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 4.2rem;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        .hero h1 span {
+            color: var(--accent-primary);
+            text-shadow: 0 0 20px rgba(30, 144, 255, 0.7);
+            position: relative;
+        }
+        
+        .hero h1 span:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary));
+            border-radius: 3px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero h1:hover span:after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .hero h1:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+            border-radius: 3px;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 45px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: transparent;
+            color: var(--accent-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            border: 2px solid var(--accent-primary);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary));
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover:before {
+            width: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 10px 25px rgba(30, 144, 255, 0.5);
+        }
+        
+        /* Секции портфолио */
+        .portfolio-section {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+            font-size: 2.8rem;
+            position: relative;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            color: var(--accent-primary);
+        }
+        
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+            border-radius: 2px;
+        }
+        
+
+          .portfolio-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 16/9;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            border: 1px solid rgba(30, 144, 255, 0.1);
+        }
+        
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+       .portfolio-item {
+    box-shadow: 0 0 15px rgba(30, 144, 255, 0.1),
+                0 0 30px rgba(30, 144, 255, 0.05);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+
+        
+        .portfolio-item.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .portfolio-item.video-item {
+            aspect-ratio: 9/16;
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            filter: grayscale(40%) brightness(0.6);
+        }
+        
+     .portfolio-item:hover {
+    box-shadow: 0 0 25px rgba(30, 144, 255, 0.3),
+                0 0 50px rgba(30, 144, 255, 0.1),
+                0 0 75px rgba(30, 144, 255, 0.05);
+}
+        
+        .portfolio-item:hover img {
+            transform: scale(1.15);
+            filter: grayscale(0%) brightness(0.7);
+        }
+        
+        .item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 70%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .portfolio-item:hover .item-overlay {
+            opacity: 1;
+        }
+        
+        .item-title {
+            font-size: 1.4rem;  
+            margin-bottom: 10px;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); 
+            line-height: 1.3;
+        }
+        
+        .portfolio-item:hover .item-title {
+            transform: translateY(0);
+        }
+        
+        .item-category {
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.1s;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);  
+        }
+        
+        .portfolio-item:hover .item-category {
+            transform: translateY(0);
+        }
+        
+        .play-button {
+            width: 70px;
+            height: 70px;
+            background: rgba(30, 144, 255, 0.25);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.8rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            z-index: 2;
+        }
+        
+        .portfolio-item:hover .play-button {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .play-button:hover {
+            transform: translate(-50%, -50%) scale(1.15);
+            background: rgba(30, 144, 255, 0.4);
+            box-shadow: 0 8px 30px rgba(30, 144, 255, 0.5);
+        }
+
+        .portfolio-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(30,144,255,0.1)"/><circle cx="80" cy="80" r="1" fill="rgba(79,172,254,0.1)"/></svg>');
+    background-attachment: fixed;
+    z-index: -1;
+    opacity: 0.3;
+}
+        
+        /* Секция "О монтажере" */
+        .about-section {
+            padding: 120px 0;
+            background: var(--darker-bg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(30, 144, 255, 0.08), transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(79, 172, 254, 0.03), transparent 30%);
+            z-index: 0;
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 50px;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .about-text {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .about-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .about-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 35px;
+            position: relative;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+        
+        .about-text h2:after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+            border-radius: 2px;
+        }
+        
+        .about-text p {
+            margin-bottom: 25px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .about-highlights {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+            width: 100%;
+        }
+        
+        .highlight-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 35px 25px;
+            background: rgba(14, 19, 41, 0.7);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(30, 144, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .highlight-item:hover {
+            transform: translateY(-8px);
+            border-color: rgba(30, 144, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(30, 144, 255, 0.2);
+        }
+        
+        .highlight-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(30, 144, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            border: 2px solid rgba(30, 144, 255, 0.3);
+            color: var(--accent-primary);
+            transition: all 0.4s ease;
+        }
+        
+        .highlight-item:hover .highlight-icon {
+            background: rgba(30, 144, 255, 0.2);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 25px rgba(30, 144, 255, 0.3);
+        }
+        
+        .highlight-text h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-primary);
+        }
+        
+        .highlight-text p {
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .tg-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            background: rgba(30, 144, 255, 0.1);
+            color: var(--accent-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(30, 144, 255, 0.3);
+            margin-top: 10px;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .tg-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary));
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .tg-button:hover:before {
+            width: 100%;
+        }
+        
+        .tg-button:hover {
+            background: rgba(30, 144, 255, 0.2);
+            transform: translateY(-3px);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 8px 25px rgba(30, 144, 255, 0.3);
+        }
+        
+        
+        /* CTA секция */
+        .premium-cta {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, var(--darker-bg), var(--dark-bg));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-cta:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 75% 25%, rgba(30, 144, 255, 0.08), transparent 25%);
+            z-index: 0;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.6rem;
+            margin-bottom: 20px;
+            color: var(--accent-primary);
+        }
+        
+        .cta-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .premium-btn {
+            background: rgba(30, 144, 255, 0.1);
+            border: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .premium-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary));
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .premium-btn:hover:before {
+            width: 100%;
+        }
+        
+        .premium-btn:hover {
+            background: rgba(30, 144, 255, 0.2);
+            transform: translateY(-5px);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 15px 30px rgba(30, 144, 255, 0.3);
+        }
+         
+        
+
+   /*Значки*/
+         .item-meta {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+              .platform-icon, .content-type {
+            display: flex;
+            align-items: center;
+            padding: 6px 10px;
+            background: rgba(30, 144, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            border: 1px solid rgba(30, 144, 255, 0.2);
+        }
+        
+                .platform-icon {
+            padding: 8px;
+            width: 34px;
+            height: 34px;
+            justify-content: center;
+        }
+        
+        .platform-icon i {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .search-box {
+            margin: 20px 0;
+            padding: 0 25px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(30, 144, 255, 0.05);
+            border: 1px solid rgba(30, 144, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: rgba(30, 144, 255, 0.3);
+            background: rgba(30, 144, 255, 0.08);
+            box-shadow: 0 0 10px rgba(30, 144, 255, 0.2);
+        }
+        
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 0 25px;
+        }
+        
+        .filter-tag {
+            padding: 6px 12px;
+            background: rgba(30, 144, 255, 0.05);
+            border: 1px solid rgba(30, 144, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag.active {
+            background: rgba(30, 144, 255, 0.2);
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+        
+
+        .filter-tag:hover {
+            background: rgba(30, 144, 255, 0.15);
+            color: var(--accent-primary);
+            border-color: rgba(30, 144, 255, 0.3);
+        }
+
+        /* Модальное окно */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            width: 85%;
+            max-width: 1000px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(30, 144, 255, 0.2);
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            padding: 20px 30px;
+            background: var(--darker-bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(30, 144, 255, 0.1);
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-primary);
+            background: rgba(30, 144, 255, 0.05);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-video iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .modal-description {
+            margin-top: 20px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+        
+       
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        
+        .portfolio-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            filter: grayscale(40%) brightness(0.6);
+        }
+        
+        .portfolio-item:hover video {
+            transform: scale(1.15);
+            filter: grayscale(0%) brightness(0.7);
+        }
+        
+     
+        .video-preview {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .video-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+        
+        .portfolio-item:hover .video-preview::before {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.6rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 35px;
+            }
+            
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.4rem;
+            }
+            
+            .about-text h2 {
+                font-size: 2.4rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-toggle {
+                top: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .side-nav {
+                width: 300px;
+                padding: 100px 25px;
+            }
+            
+            .side-nav-links a {
+                font-size: 1.2rem;
+                padding: 12px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 60px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                gap: 30px;
+                padding: 0 20px;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+            
+            .about-text h2 {
+                font-size: 2rem;
+            }
+            
+            .highlight-item {
+                padding: 25px 20px;
+            }
+            
+            .footer-section {
+                min-width: 100%;
+            }
+            
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .side-nav {
+                width: 280px;
+                padding: 80px 20px;
+            }
+            
+            .modal-header {
+                padding: 15px 20px;
+            }
+            
+            .modal-body {
+                padding: 20px 15px;
+            }
+            
+            .about-text h2 {
+                font-size: 1.8rem;
+            }
+            
+            .tg-button {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            
+            .footer-section h3 {
+                font-size: 1.4rem;
+            }
+            
+            .social-links a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            .premium-btn {
+                padding: 15px 30px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .portfolio-item {
+                border-radius: 12px;
+            }
+            
+            .item-overlay {
+                padding: 20px;
+            }
+            
+            .item-title {
+                font-size: 1.2rem;
+            }
+            
+            .about-text h2 {
+                font-size: 1.6rem;
+            }
+            
+            .testimonial-card {
+                padding: 25px 20px;
+            }
+        }
+        
+    
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 5px 20px rgba(30, 144, 255, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(30, 144, 255, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 5px 20px rgba(30, 144, 255, 0.3); }
+        }
+        
+        @keyframes slideInFromLeft {
+            0% { transform: translateX(-100px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromRight {
+            0% { transform: translateX(100px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        .pulse-animation {
+            animation: pulse 3s infinite ease-in-out;
+        }
+        
+        .slide-in-left {
+            animation: slideInFromLeft 1s forwards;
+        }
+        
+        .slide-in-right {
+            animation: slideInFromRight 1s forwards;
+        }
+        
+     
+        .gradient-text {
+            background: linear-gradient(90deg, #1e90ff, #4facfe, #1e90ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradient-shift 3s linear infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        
+ 
+        .parallax-section {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+ 
+        .animated-border {
+            position: relative;
+        }
+        
+        .animated-border::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.5s ease;
+        }
+        
+        .animated-border:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+         
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(30, 144, 255, 0.3);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+         
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(30, 144, 255, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(30, 144, 255, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(30, 144, 255, 0.5); }
+        }
+        
+        .glow-effect {
+            animation: glow 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+     <!-- Боковая навигация -->
+    <div class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+        
+    <div class="side-nav">
+        <div class="nav-decoration"></div>
+        <div class="nav-decoration"></div>
+     
+        
+        
+        <ul class="side-nav-links">
+            <li><a href="#horizontal" data-section="horizontal"><i class="fas fa-desktop"></i> Горизонтальные видео</a></li>
+            <li><a href="#vertical" data-section="vertical"><i class="fas fa-mobile-alt"></i> Вертикальные видео</a></li>
+          <li><a href="#motion" data-section="motion"><i class="fas fa-chart-bar"></i> Моушен</a></li>
+            <li><a href="#about" data-section="about"><i class="fas fa-user"></i> Соц.Сети Монтажера</a></li>
+        </ul>
+    </div>
+ 
+    <section class="hero">
+        <div class="particles-container" id="particles"></div>
+         <div class="hero-bg"></div>
+         <div class="hero-bg-overlay"></div>
+        <div class="hero-content">
+            <h1>Что же за работы делает <span>этот молодой человек?</span></h1>
+            <p>Одним словом - конфетки, а не видео</p>
+            <a href="#horizontal" class="cta-button pulse-animation">Убедиться</a>
+        </div>
+    </section>
+
+    <!-- Горизонтальные видео -->
+     <section id="horizontal" class="portfolio-section">
+        <h2 class="section-title">Горизонтальные видео</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item slide-in-left" data-platform="youtube" data-type="infographic motion">
+                <div class="video-preview">
+                    <video muted loop playsinline>
+                        <source src="first.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                <div class="item-overlay">
+                    <h3 class="item-title">Video for YT</h3>
+                    <h3 class="item-title"> </h3>
+                   
+                    <div class="item-meta">
+                        <div class="platform-icon"><i class="fab fa-youtube"></i></div>
+                        <div class="content-type">Инфографика</div>
+                        <div class="content-type">Моушен</div>
+                    </div>
+                </div>
+                <div class="play-button" data-video-src="first.MP4" data-title="Горизонтальное видео"
+                 data-description="Горизонтальное видео с использованием моушена и инфографики для Youtube ">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="portfolio-item" data-platform="spotify" data-type="">
+                <div class="video-preview">
+                    <video muted loop playsinline>
+                        <source src="two.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                <div class="item-overlay">
+                    <h3 class="item-title">Video intro</h3> 
+                    <div class="item-meta">
+                       <div class="platform-icon"><i class="fas fa-a"></i></div>
+                        <div class="content-type">Горизонтальное</div>
+                    </div>
+                </div>
+                <div class="play-button" data-video-src="bp.MP4" data-title="Video intro" data-description="Горизонтальное Video intro"  >
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="portfolio-item slide-in-right" data-platform="youtube" data-type="infographic">
+                <div class="video-preview">
+                    <video muted loop playsinline>
+                        <source src="three.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                <div class="item-overlay">
+                    <h3 class="item-title">Video for YT</h3>
+                 
+                      <div class="item-meta">
+                        <div class="platform-icon"><i class="fab fa-youtube"></i></div>
+                        <div class="content-type">Горизонтальное</div>
+                        <div class="content-type">Инфографика</div>
+                    </div>
+                </div>
+                <div class="play-button" data-video-src="three.MP4" 
+                data-title="Горизонтальное видео  " data-description="Горизонтальное видео с использованием моушена и инфографики для Youtube"  >
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Вертикальные видео -->
+    <section id="vertical" class="portfolio-section">
+        <h2 class="section-title">Вертикальные видео</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item video-item slide-in-left" data-platform="instagram" data-type="infographic">
+                <div class="video-preview">
+                    <video muted loop playsinline>
+                        <source src="rels1.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                <div class="item-overlay">
+                    <h3 class="item-title">Reels for Pablo</h3>
+             
+                    <div class="item-meta">
+                        <div class="platform-icon"><i class="fab fa-instagram"></i></div>
+                        <div class="content-type">Вертикальное видео</div>
+                        <div class="content-type">Инфографика</div>
+                             <div class="content-type">Англоязычный</div>
+                    </div>
+                </div>
+                <div class="play-button" data-video-src="rels1.MP4" data-title="Reels for Pablo" 
+                data-description="Вертикальный Reels на английском языке с помощью инфографики">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="portfolio-item video-item" data-platform="youtube" data-type="">
+                <div class="video-preview">
+                    <video muted loop playsinline>
+                        <source src="rels2.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                <div class="item-overlay">
+                    <h3 class="item-title">Shorts for Karad detailing</h3>
+                 
+                    <div class="item-meta">
+                        <div class="platform-icon"><i class="fab fa-youtube"></i></div>  
+                        <div class="content-type">Вертикальное видео</div>
+                    </div>
+                </div>
+                <div class="play-button" data-video-src="rels2.MP4" data-title="YouTube Shorts" 
+                data-description="Вертикальное видео для Youtube shorts">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="portfolio-item video-item slide-in-right" data-platform="instagram" data-type="infographic english">
+                <div class="video-preview">
+                    <video muted loop playsinline>
+                        <source src="rels3.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                <div class="item-overlay">
+                    <h3 class="item-title">Reels for Zapretgram</h3>
+                  
+                    <div class="item-meta">
+                        <div class="platform-icon"><i class="fab fa-instagram"></i></div>
+                        <div class="content-type" >Вертикальное видео</div>
+                        <div class="content-type">Инфографика</div>
+                        <div class="content-type">Англоязычный</div>
+                    </div>
+                </div>
+                <div class="play-button" data-video-src="rels3.MP4" data-title="Англоязычный Reels" 
+                data-description="Вертикальный Reels на английском языке с помощью инфографики ">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- Моушен графика -->
+    <section id="motion" class="portfolio-section">
+        <h2 class="section-title">Моушен графика</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item slide-in-left" data-platform="" data-type="motion">
+                <div class="video-preview">
+                    <video muted loop playsinline>
+                        <source src="msh1.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                <div class="item-overlay">
+                    <h3 class="item-title">Моушен </h3>
+                    <div class="item-category">Graphics </div>
+                    <div class="item-meta">
+                        <div class="content-type">Моушен</div>
+                    </div>
+                </div>
+                <div class="play-button" data-video-src="msh1.MP4" data-title="Моушен видео"
+                 data-description="Видео с использованием моушен дизайна">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="portfolio-item" data-platform="" data-type="motion infographic">
+                <div class="video-preview">
+                    <video muted loop playsinline>
+                        <source src="msh2.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                <div class="item-overlay">
+                    <h3 class="item-title">Моушен  </h3> 
+                     <div class="item-category">Graphics </div>
+                    <div class="item-meta">
+                        <div class="content-type">Моушен</div>
+                        <div class="content-type">Инфографика</div>
+                    </div>
+                </div>
+                <div class="play-button" data-video-src="msh2.MP4"
+                data-title="Мoушен с инфографикой" data-description="Моушен дизайн с элементами инфографики">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="portfolio-item slide-in-right" data-platform="" data-type="infographic">
+                <div class="video-preview">
+                    <video muted loop playsinline>
+                        <source src="msh3.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                <div class="item-overlay">
+                    <h3 class="item-title">Моушен</h3>
+               <div class="item-category">Graphics </div>
+                    <div class="item-meta">
+                        <div class="content-type">Моушен</div>
+                        <div class="content-type">Инфографика</div>
+                    </div>
+                </div>
+                <div class="play-button" data-video-src="msh3.MP4" data-title="Моушен с инфографикой" 
+                data-description="Моушен дизайн с элементами инфографики ">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Секция "О монтажере" -->
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>О монтажере</h2>
+                    <p>Поговаривают, что это лучший монтажер СНГ. Что же за работы делает этот молодой человек? Одним словом - конфетки, а не видео.</p>
+                    
+                    <div class="about-highlights">
+                        <div class="highlight-item slide-in-left">
+                            <div class="highlight-icon">
+                                <i class="fas fa-blog"></i>
+                            </div>
+                            <div class="highlight-text">
+                                <h4>Блог</h4>
+                                <p>Вся поднебесная монтажа, жизнь монтажера и просто хорошего человека, который не прочь поделиться своими знаниями. Все это находится в моем блоге.</p>
+                                <a href="https://t.me/mirovprod " class="tg-button" target="_blank">
+                                    <i class="fab fa-telegram"></i> Перейти в блог
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-item slide-in-right">
+                            <div class="highlight-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="highlight-text">
+                                <h4>Открыт для каждого вопроса</h4>
+                                <p> Поговаривают, что это лучший монтажер СНГ ,но только</p>
+                                <a href=" https://t.me/cymirov" class="tg-button" target="_blank">
+                                    <i class="fab fa-telegram"></i> Написать  
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script> 
+              // Боковая навигация
+        const navToggle = document.querySelector('.nav-toggle');
+        const sideNav = document.querySelector('.side-nav');
+        
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            sideNav.classList.toggle('active');
+            document.body.style.overflow = sideNav.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        document.querySelectorAll('.side-nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                sideNav.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+      
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+   
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+     
+                    if (entry.target.classList.contains('portfolio-item')) {
+                        const index = Array.from(entry.target.parentNode.children).indexOf(entry.target);
+                        if (index % 3 === 0) {
+                            entry.target.classList.add('slide-in-left');
+                        } else if (index % 3 === 2) {
+                            entry.target.classList.add('slide-in-right');
+                        }
+                    }
+                    
+                    if (entry.target.classList.contains('highlight-item')) {
+                        const index = Array.from(entry.target.parentNode.children).indexOf(entry.target);
+                        if (index % 2 === 0) {
+                            entry.target.classList.add('slide-in-left');
+                        } else {
+                            entry.target.classList.add('slide-in-right');
+                        }
+                    }
+                }
+            });
+        }, observerOptions);
+        
+ 
+        document.querySelectorAll('.section-title').forEach(section => {
+            observer.observe(section);
+        });
+        
+     
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            observer.observe(item);
+        });
+        
+        // Наблюдаем за секцией "О монтажере"
+        document.querySelectorAll('.about-text, .highlight-item').forEach(element => {
+            observer.observe(element);
+        });
+     
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBg = document.querySelector('.hero-bg');
+            heroBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+         
+            document.querySelectorAll('.portfolio-item').forEach(item => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    item.classList.add('visible');
+                }
+            });
+        });
+        
+      
+        document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const title = button.getAttribute('data-title') || '';
+                const videoSrc = button.getAttribute('data-video-src');
+                const description = button.getAttribute('data-description') || '';
+                
+              
+                const modal = document.createElement('div');
+                modal.className = 'modal active';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">${title}</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-video">
+                                <video controls autoplay style="width:100%; height:100%">
+                                    <source src="${videoSrc}" type="video/mp4">
+                                    Ваш браузер не поддерживает видео тег.
+                                </video>
+                            </div>
+                            <p class="modal-description">${description}</p>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                document.body.style.overflow = 'hidden';
+                
+         
+                const closeModal = () => {
+                    modal.remove();
+                    document.body.style.overflow = 'auto';
+                };
+                
+                modal.querySelector('.close-modal').addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+            });
+        });
+
+ 
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+          
+                const size = Math.random() * 10 + 2;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+           
+                const colors = [
+                    'rgba(30, 144, 255, 0.5)',
+                    'rgba(79, 172, 254, 0.4)',
+                    'rgba(106, 130, 251, 0.3)'
+                ];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Функция фильтрации видео
+        function setupFiltering() {
+            const searchInput = document.getElementById('search-input');
+            const filterTags = document.querySelectorAll('.filter-tag');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+          
+            
+        
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    
+                    tag.classList.add('active');
+                    
+                    const filterValue = tag.getAttribute('data-filter');
+                    
+                    if (filterValue === 'youtube') {
+                        window.scrollTo({
+                            top: document.getElementById('horizontal').offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    } else if (filterValue === 'instagram') {
+                       
+                        window.scrollTo({
+                            top: document.getElementById('vertical').offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    } else if (filterValue === 'all') {
+                        window.scrollTo({
+                            top: document.getElementById('horizontal').offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                     
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all') {
+                            item.style.display = 'block';
+                            return;
+                        }
+                        
+                        const platform = item.getAttribute('data-platform');
+                        const type = item.getAttribute('data-type');
+                        
+                        if (platform.includes(filterValue) || type.includes(filterValue)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+        
+ 
+        function setupVideoHover() {
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+            portfolioItems.forEach(item => {
+                const video = item.querySelector('video');
+                if (!video) return;
+                
+                item.addEventListener('mouseenter', () => {
+                    video.play().catch(e => {
+                        
+                    });
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            });
+        }
+        
+        
+        window.addEventListener('DOMContentLoaded', () => {
+       
+            document.querySelector('.hero-content').style.opacity = '1';
+            document.querySelector('.hero-content').style.transform = 'translateY(0)';
+            
+      
+            setTimeout(() => {
+                document.querySelectorAll('.section-title, .portfolio-item').forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.8) {
+                        item.classList.add('visible');
+                    }
+                });
+            }, 500);
+            
+          
+            const ctaButton = document.querySelector('.cta-button');
+            if (ctaButton) {
+                setInterval(() => {
+                    ctaButton.classList.toggle('pulse-animation');
+                }, 3000);
+            }
+            
+           
+            createParticles();
+            
+         
+            setupFiltering();
+            
+           
+            setupVideoHover();
+            
+           
+            window.addEventListener('scroll', () => {
+                document.querySelectorAll('.portfolio-item').forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85 && !item.classList.contains('animated')) {
+                        item.classList.add('animated');
+                        
+                     
+                        setTimeout(() => {
+                            item.style.transform = 'translateY(-10px) scale(1.02)';
+                            setTimeout(() => {
+                                item.style.transform = 'translateY(0) scale(1)';
+                            }, 300);
+                        }, index * 100);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
